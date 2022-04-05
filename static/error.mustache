@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title> </title>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=DM+Mono:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700" rel="stylesheet">
   {{#loadFA}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
@@ -20,20 +21,23 @@
       <h3 class="error-status">{{ status }}</h3>
 
       <div class="error-title">
-        <h4 class="error-name"> {{ name }} </h4>
-        <h2 class="error-message"> {{ message }} </h2>
+        <h4 class="error-name">{{ name }}</h4>
+        <h2 class="error-message">{{#message}}{{text}}{{#code}}<pre>{{code}}</pre>{{/code}}{{/message}}</h2>
         <p class="error-links">
           {{#links}}
             {{{ . }}}
           {{/links}}
         </p>
+
+        {{^explaination}}<p class="error-explainer">You are seeing this page because <a href="https://cinnamon.apollosoftware.xyz/" target="_blank" rel="noopener nofollow">Cinnamon</a> has detected the above unexpected error and is in development mode.</p>{{/explaination}}
+        {{#explaination}}<p class="error-explainer">{{explaination}}</p>{{/explaination}}
       </div>
 
       <div class="error-frames">
         {{!-- Filled using frontend code, based upon the active frame --}}
         <div class="frame-preview is-hidden">
           <div id="frame-file"></div>
-          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
+          <div id="frame-code"><pre class="line-numbers"><code class="language-ts match-braces" id="code-drop"></code></pre></div>
           <div id="frame-method"></div>
         </div>
 

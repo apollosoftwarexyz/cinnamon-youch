@@ -345,6 +345,20 @@ class Youch {
             data.request = this._serializeRequest()
           }
 
+          const rawMessage = data.message.trim().split("\n");
+          data.message = rawMessage.map(rawLine => {
+            if (rawLine.startsWith('>\t')) {
+              rawLine = { "code": rawLine.substring(2, rawLine.length) };
+            } else {
+              rawLine = { "text": rawLine }
+            }
+
+            return rawLine;
+          });
+
+          if (this.error.explaination)
+            data.explaination = this.error.explaination;
+
           data.links = this.links.map((renderLink) => renderLink(data))
           data.loadFA = !!data.links.find((link) => link.includes('fa-'))
           data.showAllFrames = this.showAllFrames

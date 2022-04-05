@@ -2,7 +2,7 @@
   from {
     border-color: #c0c0c0; }
   to {
-    border-color: #3e97eb; } }
+    border-color: #8247FF; } }
 
 .magic-radio,
 .magic-checkbox {
@@ -75,16 +75,16 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3e97eb; }
+  background: #8247FF; }
 
 .magic-radio:checked + label:before {
-  border: 1px solid #3e97eb; }
+  border: 1px solid #8247FF; }
 
 .magic-radio:checked[disabled] + label:before {
-  border: 1px solid #c9e2f9; }
+  border: 1px solid #8247FF; }
 
 .magic-radio:checked[disabled] + label:after {
-  background: #c9e2f9; }
+  background: #8247FF; }
 
 .magic-checkbox + label:before {
   border-radius: 3px; }
@@ -103,9 +103,9 @@
   border-left: 0; }
 
 .magic-checkbox:checked + label:before {
-  border: #3e97eb;
-  background: #3e97eb; }
+  border: #8247FF;
+  background: #8247FF; }
 
 .magic-checkbox:checked[disabled] + label:before {
-  border: #c9e2f9;
-  background: #c9e2f9; }
+  border: #8247FF;
+  background: #8247FF; }
