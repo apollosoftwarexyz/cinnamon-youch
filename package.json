@@ -22,16 +22,10 @@
   "license": "MIT",
   "devDependencies": {
     "concat": "^1.0.3",
-    "cz-conventional-changelog": "^3.3.0",
     "japa": "^4.0.0",
     "standard": "^16.0.4",
     "supertest": "^6.2.2",
     "uglify-js": "^3.15.3"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "dependencies": {
     "cookie": "^0.4.2",
