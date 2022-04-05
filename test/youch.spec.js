@@ -97,16 +97,119 @@ test.group('Youch', () => {
       .catch(done)
   })
 
-  test('return active class when index is 0', (assert) => {
+  test('return active class when index is 0 if the frame is an app frame', (assert) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
-    const frame = {
-      isApp: true,
-      getFileName: () => './hello.js'
-    }
+    const frames = [
+      {
+        isApp: true,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      }
+    ]
 
-    const classes = youch._getDisplayClasses(frame, 0)
-    assert.equal(classes, 'active')
+    const data = youch._serializeData(frames, (frame, index) => {
+      frame.classes = youch._getDisplayClasses(frame, index)
+      return frame
+    })
+
+    assert.include(data.frames[0].classes, 'active')
+  })
+
+  test('do not return active class when index is 0 if the frame is not an app frame but there is an app', (assert) => {
+    const error = new Error('this is bar')
+    const youch = new Youch(error, {})
+    const frames = [
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      },
+      {
+        isApp: true,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      }
+    ]
+
+    const data = youch._serializeData(frames, (frame, index) => {
+      frame.classes = youch._getDisplayClasses(frame, index)
+      return frame
+    })
+
+    assert.notInclude(data.frames[0].classes, 'active')
+  })
+
+  test('return active class when index is 1 if the first frame is not an app frame but index 1 is', (assert) => {
+    const error = new Error('this is bar')
+    const youch = new Youch(error, {})
+    const frames = [
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      },
+      {
+        isApp: true,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      }
+    ]
+
+    const data = youch._serializeData(frames, (frame, index) => {
+      frame.classes = youch._getDisplayClasses(frame, index)
+      return frame
+    })
+
+    assert.include(data.frames[1].classes, 'active')
+  })
+
+  test('do not return active class when index is 1 if the first frame is not an app frame but index 1 is also not', (assert) => {
+    const error = new Error('this is bar')
+    const youch = new Youch(error, {})
+    const frames = [
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      },
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      }
+    ]
+
+    const data = youch._serializeData(frames, (frame, index) => {
+      frame.classes = youch._getDisplayClasses(frame, index)
+      return frame
+    })
+
+    assert.notInclude(data.frames[1].classes, 'active')
+  })
+
+  test('return active class when index is 0 if the first frame is not an app frame but index 1 is also not', (assert) => {
+    const error = new Error('this is bar')
+    const youch = new Youch(error, {})
+    const frames = [
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      },
+      {
+        isApp: false,
+        getFileName: () => './hello.js',
+        file: './hello.js'
+      }
+    ]
+
+    const data = youch._serializeData(frames, (frame, index) => {
+      frame.classes = youch._getDisplayClasses(frame, index)
+      return frame
+    })
+
+    assert.include(data.frames[0].classes, 'active')
   })
 
   test('return native frame class when frame is native', (assert) => {

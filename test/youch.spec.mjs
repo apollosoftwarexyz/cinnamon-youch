@@ -111,7 +111,7 @@ test.group('Youch | ESM', () => {
     }
 
     const classes = youch._getDisplayClasses(frame, 0)
-    assert.equal(classes, 'active')
+    assert.include(classes, 'active')
   })
 
   test('return native frame class when frame is native', (assert) => {

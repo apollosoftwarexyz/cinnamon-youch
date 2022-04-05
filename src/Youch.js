@@ -236,20 +236,24 @@ class Youch {
   _serializeData (stack, callback) {
     callback = callback || this._serializeFrame.bind(this)
 
-    let frames = stack instanceof Array === true
-          ? stack.filter((frame) => frame.file).map(callback)
+    const frames = stack instanceof Array === true
+      ? stack.filter((frame) => frame.file).map(callback)
       : []
 
-    let firstAppFrame = frames.findIndex(frame => frame.isApp)
-    if (firstAppFrame !== -1) {
-      // If the firstAppFrame is not -1 it means we have an app frame in the
-      // stack. So we'll remove 'active' from the class list of the first
-      // frame and add it to the class list of the app frame.
-      let firstFrameClasses = frames[0].classes.split(' ')
-      firstFrameClasses.splice(firstFrameClasses.indexOf("active"), 1)
-      frames[0].classes = firstFrameClasses.join(" ")
+    if (frames.length > 0) {
+      if (frames.find(frame => frame.classes)) {
+        const firstAppFrame = frames.findIndex(frame => frame.isApp)
+        if (firstAppFrame !== -1) {
+          // If the firstAppFrame is not -1 it means we have an app frame in the
+          // stack. So we'll remove 'active' from the class list of the first
+          // frame and add it to the class list of the app frame.
+          const firstFrameClasses = frames[0].classes.split(' ')
+          firstFrameClasses.splice(firstFrameClasses.indexOf('active'), 1)
+          frames[0].classes = firstFrameClasses.join(' ')
 
-      frames[firstAppFrame].classes += ' active'
+          frames[firstAppFrame].classes += ' active'
+        }
+      }
     }
 
     return {
