@@ -1,7 +1,7 @@
 {
-  "name": "youch",
+  "name": "@apollosoftwarexyz/cinnamon-youch",
   "version": "3.1.2",
-  "description": "HTML Pretty error stack viewer",
+  "description": "A fork of the Youch pretty error reporting library for Cinnamon",
   "main": "src/Youch.js",
   "files": [
     "src",
@@ -18,7 +18,7 @@
     "test": "npm run build && node test/youch.spec.js && node test/youch.spec.mjs",
     "lint": "standard"
   },
-  "author": "amanvirk",
+  "author": "Apollo Software Limited, amanvirk",
   "license": "MIT",
   "devDependencies": {
     "concat": "^1.0.3",
