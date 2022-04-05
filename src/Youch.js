@@ -134,9 +134,11 @@ class Youch {
       classes.push('active')
     }
 
-    if (!frame.isApp) {
-      classes.push('native-frame')
-    }
+    classes.push(
+      frame.isApp
+        ? 'app-frame'
+        : 'native-frame'
+    )
 
     return classes.join(' ')
   }
@@ -233,14 +235,28 @@ class Youch {
    */
   _serializeData (stack, callback) {
     callback = callback || this._serializeFrame.bind(this)
+
+    let frames = stack instanceof Array === true
+          ? stack.filter((frame) => frame.file).map(callback)
+      : []
+
+    let firstAppFrame = frames.findIndex(frame => frame.isApp)
+    if (firstAppFrame !== -1) {
+      // If the firstAppFrame is not -1 it means we have an app frame in the
+      // stack. So we'll remove 'active' from the class list of the first
+      // frame and add it to the class list of the app frame.
+      let firstFrameClasses = frames[0].classes.split(' ')
+      firstFrameClasses.splice(firstFrameClasses.indexOf("active"), 1)
+      frames[0].classes = firstFrameClasses.join(" ")
+
+      frames[firstAppFrame].classes += ' active'
+    }
+
     return {
       message: this.error.message,
       name: this.error.name,
       status: this.error.status,
-      frames:
-        stack instanceof Array === true
-          ? stack.filter((frame) => frame.file).map(callback)
-          : []
+      frames
     }
   }
 
@@ -334,10 +350,12 @@ class Youch {
         .then((stack) => {
           const data = this._serializeData(stack, (frame, index) => {
             const serializedFrame = this._serializeFrame(frame)
+
             serializedFrame.classes = this._getDisplayClasses(
               serializedFrame,
               index
             )
+
             return serializedFrame
           })
 

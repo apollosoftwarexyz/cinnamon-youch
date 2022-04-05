@@ -215,6 +215,10 @@ monospace;
   border-radius: 24px;
 }
 
+.frame-row.force-show:after {
+  opacity: 0.4;
+}
+
 .frame-row:hover, .frame-row.active {
   background: #fff;
 }
