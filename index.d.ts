@@ -1,4 +1,4 @@
-export default class Youch<Error, Request> {
+declare class Youch<Error, Request> {
   constructor(error: Error, request: Request);
 
   /**
@@ -17,21 +17,21 @@ export default class Youch<Error, Request> {
       name: string;
       status: number;
       frames: {
-        file: string,
-        filePath: string,
-        line: number,
-        column: number,
-        callee: string,
-        calleeShort: string,
+        file: string;
+        filePath: string;
+        line: number;
+        column: number;
+        callee: string;
+        calleeShort: string;
         context: {
-          start: number,
-          pre: string,
-          line: string,
-          post: string,
-        },
-        isModule: boolean,
-        isNative: boolean,
-        isApp: boolean
+          start: number;
+          pre: string;
+          line: string;
+          post: string;
+        };
+        isModule: boolean;
+        isNative: boolean;
+        isApp: boolean;
       }[];
     };
   }>;
@@ -43,3 +43,7 @@ export default class Youch<Error, Request> {
    */
   toHTML(): Promise<string>;
 }
+
+// We need to add these to hint to TypeScript that this is a CommonJS module.
+declare namespace Youch { }
+export = Youch;
