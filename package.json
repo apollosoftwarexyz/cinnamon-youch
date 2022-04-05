@@ -16,7 +16,8 @@
     "prepublishOnly": "npm run build",
     "build": "node bin/compile.js",
     "test": "npm run build && node test/youch.spec.js && node test/youch.spec.mjs",
-    "lint": "standard"
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "author": "Apollo Software Limited, amanvirk",
   "license": "MIT",
